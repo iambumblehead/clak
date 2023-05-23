@@ -15,7 +15,7 @@ const rowget = (keyfirstcsv, key, i = -1) => (
 
 const clakparserow = (csv, key, def) => {
   const rowtop = clakparserowtop(csv)
-  const keycol = Math.max(rowtop.indexOf('key'), 0)
+  const keycol = rowtop.reduce((p, v, i) => clakKeyRe.test(v) ? i : p, 0)
   const enUScol = rowtop.indexOf('en-US')
   const row = rowget(
     keycol === 1 ? csv.replace(clackrmfirstcolre, '') : csv, key)
@@ -33,7 +33,8 @@ const clakparserow = (csv, key, def) => {
 
 const clakparselangs = (csv, keys) => {
   const rowtop = clakparserowtop(csv)
-  const keycol = Math.max(rowtop.search(clakKeyRe), 0)
+  const keycol = rowtop.reduce((p, v, i) => clakKeyRe.test(v) ? i : p, 0)
+
   if (rowtop.indexOf('en-US') === -1)
     throw new Error(`required default en-US column not found"`)
 
@@ -51,39 +52,37 @@ const clakvaluefindfirstlang = (tuple, langs, langspref) => {
   if (langspref.length === 0)
     return tuple[1] // the 'default'
 
-  const langpos = langs[langspref[0]]
-  if (tuple[langpos]) {
-    return tuple[langpos]
-  } else {
-    return clakvaluefindfirstlang(tuple, langs, langspref.slice(1))
-  }
+  return tuple[langs[langspref[0]]]
+    || clakvaluefindfirstlang(tuple, langs, langspref.slice(1))
 }
 
-const clakvalue = (tuple, langs, langprefs) => {
-  console.log(tuple, langs, langprefs)
+const clakProbe = (tuple, langs, langprefs) => {
   // until there is a value keep searching
   langprefs = [...new Set(langprefs.slice().concat(langs.priority))]
 
-
-  const lang = clakvaluefindfirstlang(tuple, langs, langprefs)
-  console.log('LANGA', langs)
-  return lang
+  return clakvaluefindfirstlang(tuple, langs, langprefs)
 }
 
-const clak = (csv, key, def) => {
-  // clak(csv, [ 'en-US', 'ja-JP' ])
-  if (typeof csv === 'string' && Array.isArray(key))
+const clakSetup = csv => (key, def) => {
+  // langs store ex,
+  // ```
+  // c(['en-US', 'ja-JP'])
+  // => { priority: [ 'en-US', 'ja-JP' ], 'en-US': 2, 'ja-JP': 3 }
+  // ```
+  if (Array.isArray(key) && typeof def === 'undefined')
     return clakparselangs(csv, key)
-  
-  // clak(csv, 'acces_denied', 'no access')
-  if (typeof csv === 'string' && typeof key === 'string')
-    return clakparserow(csv, key, def)
 
-  // clak(csvtuple, langs, ['en-US', 'ja-JP'])
-  if (Array.isArray(csv) && typeof key === 'object')
-    return clakvalue(csv, key, def)
+  // messages tuple,
+  // ```
+  // c('acces_denied', 'no access')
+  // => [ 'access_denied', 'access denied', 'あなたが入れない駄目です' ]
+  // ```
+  if (typeof key === 'string')
+    return clakparserow(csv, key, def)
 
   return null
 }
 
-export default clak
+export default (...args) => typeof args[0] === 'string'
+  ? clakSetup(args[0])
+  : clakProbe(...args)

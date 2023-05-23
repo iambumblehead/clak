@@ -10,26 +10,14 @@ const csv = `
 `.slice(1, -1)
 
 test('should pass the test', () => {
-  // const langs = clak(csv, [ 'en-US', 'ja-JP' ])
-  // const access_denied = clak(csv, 'access_denied', 'no access')
-
-  
-  
-  // return an object holding prefered language order
-  // and position of each lang from a parsed row
+  // memoize csv to a function returning lang store and tuples
   const c = clak(csv)
+
+  // lang store defines lang priority and col position each lang
   const langs = c([ 'en-US', 'ja-JP' ])
-  // const [ c, langs ] = clak(csv, [ 'en-US', 'ja-JP' ])
 
-  // return the parsed row with default value populated
+  // tuple parsed row, uses scripted default when csv default missing
   const access_denied = c('access_denied', 'no access')
-  // const langs = clak(csv, [ 'en-US', 'ja-JP' ])
-  // const access_denied = clak(csv, 'access_denied', 'no access')
-  
-  // const cla = clak(csv, [ 'en-US', 'ja-JP' ])
-  // const access_denied = cla('acces_denied', 'no access')
-  
-
   assert.deepEqual(
     access_denied,
     ['access_denied','access denied','あなたが入れない駄目です'])
