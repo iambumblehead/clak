@@ -1,6 +1,6 @@
-Clak parses csv values to return internationalized messages in a "lazy" manner, mostly for server applications sending language-specific responses. An innovative base and default-values system from [nanostores][2] with [@nanostores/i18n][3] is loosely followed,
+`clak` parses csv values to return internationalized messages in a "lazy" manner, mostly for server applications sending language-specific responses,
  * operates on csv values,
- * enforces in-code default langugage values ala nanostores,
+ * enforces in-code default language values à la [nanostores/i18n,][3]
  * anticipates predictable, [unity-style csv file format,][1]
  * provides a flat key-value interface using no namespaces,
  * less than 100 lines of code and no dependencies,
@@ -12,7 +12,7 @@ Clak parses csv values to return internationalized messages in a "lazy" manner, 
 [3]: https://github.com/nanostores/i18n
 
 
-To start, use the csv value to create a language object and message tuples, then return final language values from each tuple, specifying a list of preferred language values from which the return value should preferably correspond.
+To start, use a csv value to create a language object and message tuples. Next, return final language values from each tuple, specifying a list of preferred-language values from which the return value should correspond.
 ```javascript
 const csv = `
 "id","key","en-US","ja-JP"

@@ -1,10 +1,10 @@
 {
   "name": "clak",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "ISC",
   "readmeFilename": "README.md",
-  "description": "returns localised values from google-formatted csv translation file",
+  "description": "parses csv values to return internationalized messages",
   "author": "chris <chris@bumblehead.com>",
   "main": "clak.js",
   "browser": "clak.js",
