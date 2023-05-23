@@ -49,7 +49,6 @@ const clakparselangs = (csv, keys) => {
 
     return prev
   }, {})]
-  //}, { priority: keys })
 }
 
 const clakProbeFind = (tuple, langs, langspref) => langspref.length === 0
@@ -59,7 +58,6 @@ const clakProbeFind = (tuple, langs, langspref) => langspref.length === 0
 
 const clakProbe = (tuple, langs, langprefs) => clakProbeFind(
   tuple, langs[1], [...new Set(langprefs.slice().concat(langs[0]))])
-// tuple, langs, [...new Set(langprefs.slice().concat(langs.priority))])
 
 const clakSetup = csv => (key, def) => {
   // ```
