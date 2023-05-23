@@ -42,13 +42,14 @@ const clakparselangs = (csv, keys) => {
     throw new Error(`required default en-US column not found"`)
 
   // { priority: ['en-US'], en-US: 1, ja-JP: 2 }
-  return keys.reduce((prev, key) => {
+  return [keys, keys.reduce((prev, key) => {
     prev[key] = rowtop.indexOf(key) - keycol
     if (prev[key] === -1)
       throw new Error(`key not found: ${key}`)
 
     return prev
-  }, { priority: keys })
+  }, {})]
+  //}, { priority: keys })
 }
 
 const clakProbeFind = (tuple, langs, langspref) => langspref.length === 0
@@ -57,7 +58,8 @@ const clakProbeFind = (tuple, langs, langspref) => langspref.length === 0
       || clakProbeFind(tuple, langs, langspref.slice(1))
 
 const clakProbe = (tuple, langs, langprefs) => clakProbeFind(
-  tuple, langs, [...new Set(langprefs.slice().concat(langs.priority))])
+  tuple, langs[1], [...new Set(langprefs.slice().concat(langs[0]))])
+// tuple, langs, [...new Set(langprefs.slice().concat(langs.priority))])
 
 const clakSetup = csv => (key, def) => {
   // ```

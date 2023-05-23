@@ -18,6 +18,7 @@ test('should pass the test', () => {
 
   // tuple parsed row, uses scripted default when csv default missing
   const access_denied = c('access_denied', 'no access')
+
   assert.deepEqual(
     access_denied,
     ['access_denied','access denied','あなたが入れない駄目です'])

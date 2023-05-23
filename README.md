@@ -25,7 +25,7 @@ const csv = `
 const c = clak(csv)
 
 // lang store defines lang priority and col position each lang
-// ex, { priority: ['en-US','ja-JP'], 'en-US': 2, 'ja-JP': 3 }
+// ex, [['en-US','ja-JP'], {'en-US': 2, 'ja-JP': 3}]
 const langs = c(['en-US','ja-JP'])
 
 // row tuple, if default key has no value from csv, uses scripted default
