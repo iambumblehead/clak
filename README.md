@@ -13,7 +13,7 @@ Clak parses csv values to return internationalized messages in a "lazy" manner, 
 
 
 To start, use the csv value to create a language object and message tuples, then return final language values from each tuple, specifying a list of preferred language values from which the return value should preferably correspond.
-```
+```javascript
 const csv = `
 "id","key","en-US","ja-JP"
 1,"forbidden","you are forbidden","あなたが駄目です"
