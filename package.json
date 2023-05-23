@@ -18,7 +18,6 @@
     "url": "https://github.com/iambumblehead/clak.git"
   },
   "files": [
-    "clak.js",
     "clak.mjs",
     "README.md"
   ],
