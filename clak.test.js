@@ -35,3 +35,55 @@ test('should pass the test', () => {
     clak(access_denied, langs, ['es-ES']),
     'access denied')
 })
+
+const csvbigger = `
+"id","key","en-US"
+1,"forbidden","Forbidden ヾ(・ω・)ノ. Insufficient Authorization."
+2,"oauth_access_denied","Access denied."
+3,"oauth_authorization_pending","Authorization pending."
+4,"oauth_invalid_client","Client authentication failed."
+5,"oauth_invalid_grant","Requested grant type is undefined or invalid."
+6,"oauth_invalid_grant_bad_credentials","Requested grant type includes invalid credentials."
+7,"oauth_invalid_request","Invalid request details."
+8,"oauth_invalid_request_code_challenge","Invalid request code challenge."
+9,"oauth_invalid_request_missing_fields","Missing fields: {fields}"
+10,"oauth_invalid_request_tenant","Invalid tenant."
+11,"oauth_invalid_scope","Requested scope is undefined or invalid."
+12,"oauth_server_error","Un-expected server error."
+13,"oauth_slowdown","Slow down, wait longer between requests."
+14,"oauth_unauthorized_client","Client is unauthorized for the grant type."
+15,"oauth_unsupported_grant_type","Un-supported grant type."
+16,"oauth_unsupported_response_type","Un-supported response type."
+17,"upstream","Upstream error (☆_@). Something is wrong. {statusCode} {statusMessage}"
+18,"validation_input_display_name_already_used","Validation failed, display name is already used ""{display_name}""."
+19,"validation_input_display_name_must_be_string_length","Validation failed, display name must contain at least {len} characters."
+20,"validation_input_email_already_used","Validation failed, email is already used ""{email}""."
+21,"validation_input_email_invalid","Validation failed, email is invalid ""{email}""."
+22,"validation_input_email_or_token_invalid","Validation failed, Your email or activation token are invalid or expired."
+23,"validation_input_missing_params","Validation failed, missing parameters: {fields}"
+24,"validation_input_password_must_be_string_length","Validation failed, password must contain at least {len} characters."
+25,"validation_token_invalid","Validation failed, token is invalid."
+`.slice(1, -1)
+
+test('should handle nested double quote', () => {
+  const c = clak(csvbigger)
+  clak.warn_disable = true
+  
+  // tuple parsed row, uses scripted default when csv default missing
+  const access_denied = c('access_denied', 'no access')
+
+  // missing key
+  assert.deepEqual(
+    access_denied,
+    ['access_denied','no access'])
+
+  const validation_input_display_name_already_used = c(
+    'validation_input_display_name_already_used',
+    'name already used')
+
+  assert.deepEqual(
+    validation_input_display_name_already_used, [
+      'validation_input_display_name_already_used',
+      'Validation failed, display name is already used ""{display_name}"".'
+    ])
+})

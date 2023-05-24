@@ -23,6 +23,13 @@ const clakparserow = (csv, key, def) => {
   const row = rowget(
     keycol === 1 ? csv.replace(clackrmfirstcolre, '') : csv, key)
 
+  if (row === null) {
+    if (!clak.warn_disable)
+      console.warn(`[!!!] clak: missing row: ${key}`)
+
+    return [key, def]
+  }
+
   // '"forbidden","you are forbidden","あなたが駄目です"'
   // -> ['forbidden','you are forbidden','あなたが駄目です']
   const colsfinal = row.slice(1, -1).split('","')
@@ -77,6 +84,8 @@ const clakSetup = csv => (key, def) => {
   return null
 }
 
-export default (...args) => typeof args[0] === 'string'
+const clak = (...args) => typeof args[0] === 'string'
   ? clakSetup(args[0])
   : clakProbe(...args)
+
+export default clak
