@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/clak.svg)](https://badge.fury.io/js/clak) [![Build Status](https://github.com/iambumblehead/clak/workflows/nodejs-ci/badge.svg)][2]
+
 `clak` parses csv values to return internationalized messages in a "lazy" manner, mostly for server applications sending language-specific responses,
  * operates on csv values,
  * enforces in-code default language values à la [nanostores/i18n,][3]
