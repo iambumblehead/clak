@@ -30,10 +30,10 @@
         "const": 3
       }
     }],
-    "camelcase": [2, {"properties": "never"}],
+    "camelcase": 0,
     "func-names": [2, "never"],
     "newline-per-chained-call": 0,
-    "max-len": [2, 80],
+    "max-len": [2, 200],
     "comma-dangle": [2, "never"],
     "prefer-template": 0,
     "no-use-before-define": 0,
