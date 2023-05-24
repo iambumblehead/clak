@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/clak.svg)](https://badge.fury.io/js/clak) [![Build Status](https://github.com/iambumblehead/clak/workflows/nodejs-ci/badge.svg)][2]
+[![npm version](https://badge.fury.io/js/clak.svg)](https://badge.fury.io/js/clak) [![status](https://github.com/iambumblehead/clak/workflows/test/badge.svg)][0]
 
 `clak` parses csv values to return internationalized messages in a "lazy" manner, mostly for server applications sending language-specific responses,
  * operates on csv values,
@@ -9,6 +9,7 @@
  * returns lazy values easily used with 'accept-language' request headers
 
 
+[0]: https://github.com/iambumblehead/clak
 [1]: https://docs.unity3d.com/Packages/com.unity.localization@1.2/manual/CSV.html
 [2]: https://github.com/nanostores/nanostores
 [3]: https://github.com/nanostores/i18n
