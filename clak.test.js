@@ -67,7 +67,7 @@ const csvbigger = `
 
 test('should handle nested double quote', () => {
   const c = clak(csvbigger)
-  clak.warn_disable = true
+  c.warn_disable()
   
   // tuple parsed row, uses scripted default when csv default missing
   const access_denied = c('access_denied', 'no access')

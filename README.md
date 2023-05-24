@@ -49,11 +49,12 @@ clak(access_denied, langs, ['es-ES']) // 'access denied'
 ```
 
 
-`clak` message missing rows using console.warn.
+`clak` optionally prints missing row details.
 ``` javascript
-clak.warn_disable = true // disable warning messages
+c('forbidden', 'no access') // [!!!] clak: missing row: forbidden
+c.warn_disable() // disable warning messages
+c('forbidden', 'no access')
 ```
-
 
 
 To anyone who may possibly use this package, feel free to open issues and support requests.

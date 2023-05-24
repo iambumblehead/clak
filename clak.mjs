@@ -16,7 +16,7 @@ const rowget = (keyfirstcsv, key, i = -1) => (
       ? keyfirstcsv.slice(i).split('\n')[0]
       : rowget(keyfirstcsv, key, i + 1)))
 
-const clakparserow = (csv, key, def) => {
+const clakparserow = (csv, key, def, o) => {
   const rowtop = clakparserowtop(csv)
   const keycol = getkeycolIndex(rowtop)
   const enUScol = rowtop.indexOf('en-US')
@@ -24,7 +24,7 @@ const clakparserow = (csv, key, def) => {
     keycol === 1 ? csv.replace(clackrmfirstcolre, '') : csv, key)
 
   if (row === null) {
-    if (!clak.warn_disable)
+    if (!o.warn_disable)
       console.warn(`[!!!] clak: missing row: ${key}`)
 
     return [key, def]
@@ -66,7 +66,7 @@ const clakProbeFind = (tuple, langs, langspref) => langspref.length === 0
 const clakProbe = (tuple, langs, langprefs) => clakProbeFind(
   tuple, langs[1], [...new Set(langprefs.slice().concat(langs[0]))])
 
-const clakSetup = csv => (key, def) => {
+const clakSetup = (csv, o = {}) => Object.assign((key, def) => {
   // ```
   // c(['en-US', 'ja-JP'])
   // => { priority: [ 'en-US', 'ja-JP' ], 'en-US': 2, 'ja-JP': 3 }
@@ -79,13 +79,13 @@ const clakSetup = csv => (key, def) => {
   // => [ 'access_denied', 'access denied', 'あなたが入れない駄目です' ]
   // ```
   if (typeof key === 'string')
-    return clakparserow(csv, key, def)
+    return clakparserow(csv, key, def, o)
 
   return null
-}
+}, {
+  warn_disable: (t = true) => o.warn_disable = t
+})
 
-const clak = (...args) => typeof args[0] === 'string'
+export default (...args) => typeof args[0] === 'string'
   ? clakSetup(args[0])
   : clakProbe(...args)
-
-export default clak
