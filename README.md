@@ -56,5 +56,45 @@ c.warn_disable() // disable warning messages
 c('forbidden', 'no access')
 ```
 
+`clak` is minimal. To use templates or request headers, try these few lines..
+
+<details>
+  <summary>vanilla template solution</summary>
+
+``` javascript
+const tpl = 'Missing fields: {fields}'
+const obj = {
+  // node and browser native international list-formatting
+  fields: new Intl.ListFormat('en', {
+    style: 'short',
+    type: 'disjunction'
+  }).format(['username', 'password'])
+}
+const msg = Object.keys(obj)
+  .reduce((prev, key) => prev.replace(`{${k}}`, obj[k]), tpl)
+// 'Missing fields: username and password'
+```
+</details>
+
+<details>
+  <summary>koa and express request headers</summary>
+
+```javascript
+// https://www.w3.org/International/questions/qa-accept-lang-locales
+//
+// an accept-langauge header might look like this and could be parsed many ways,
+//  'en-GB,en-US;q=0.9,fr-CA;q=0.7,en;q=0.8'
+const acceptLangStr = ctx.get('accept-language')
+// https://www.npmjs.com/package/accept-language-parser
+const parsed = acceptLanguageParser.parse(acceptLangStr)
+const parsedISOSpec = parsed.find(p = p.code && p.region)
+
+const lang = parsedISOSpec &&
+  [parsedISOSpec.code, parsedISOSpec.region].join('-')
+// 'en-US'
+```
+
+</details>
+
 
 To anyone who may possibly use this package, feel free to open issues and support requests.
