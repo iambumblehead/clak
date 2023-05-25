@@ -56,10 +56,10 @@ c.warn_disable() // disable warning messages
 c('forbidden', 'no access')
 ```
 
-`clak` is minimal. To use templates or request headers, try these few lines..
+`clak` only returns language strings, so minimal examples of related useful things are demonstrated below..
 
 <details>
-  <summary>vanilla template solution</summary>
+  <summary>minimal template solution</summary>
 
 ``` javascript
 const tpl = 'Missing fields: {fields}'
@@ -77,7 +77,7 @@ const msg = Object.keys(obj)
 </details>
 
 <details>
-  <summary>koa and express request headers</summary>
+  <summary>minimal koa and express 'accept-language' headers</summary>
 
 ```javascript
 // https://www.w3.org/International/questions/qa-accept-lang-locales

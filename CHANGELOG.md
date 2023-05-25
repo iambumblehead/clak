@@ -1,5 +1,7 @@
 # changelog
 
+ * 0.0.6 _May.24.2023_
+   * add minimal template and koa/express examples to README
  * 0.0.5 _May.24.2023_
    * handle missing rows,
    * show warnings for missing rows,
