@@ -1,6 +1,13 @@
-[![npm version](https://badge.fury.io/js/clak.svg)](https://badge.fury.io/js/clak) [![status](https://github.com/iambumblehead/clak/workflows/test/badge.svg)][0]
 
-`clak` parses csv values to return internationalized messages in a "lazy" manner, mostly for server applications sending language-specific responses,
+<h3 align="center"><img src="https://imgur.com/2nEIMc8.png" alt="logo" height="100px"></h3>
+<p align="center"><code>clak</code> parses csv values to return international messages</p>
+
+<p align="center">
+<a href="https://www.npmjs.com/package/clak"><img src="https://img.shields.io/npm/v/clak"></a>
+<a href="https://github.com/iambumblehead/clak/workflows"><img src="https://github.com/iambumblehead/clak/workflows/test/badge.svg"></a>
+<a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-ISC-blue.svg"></a>
+</p>
+
  * operates on csv values,
  * enforces in-code default language values à la [nanostores/i18n,][3]
  * anticipates predictable, [unity-style csv file format,][1]
