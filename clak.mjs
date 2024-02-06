@@ -19,7 +19,8 @@ const rowget = (keyfirstcsv, key, i = -1) => (
 const clakparserow = (csv, key, def, o) => {
   const rowtop = clakparserowtop(csv)
   const keycol = getkeycolIndex(rowtop)
-  const enUScol = rowtop.indexOf('en-US')
+  const langDefault = clakLangDefault(o, csv)
+  const langDefaultcol = rowtop.indexOf(langDefault)
   const row = rowget(
     keycol === 1 ? csv.replace(clackrmfirstcolre, '') : csv, key)
 
@@ -35,18 +36,27 @@ const clakparserow = (csv, key, def, o) => {
   const colsfinal = row.slice(1, -1).split('","')
 
   // add default 'en-US' value, if not defined
-  if (!colsfinal[enUScol - keycol])
-    colsfinal[enUScol - keycol] = def
+  if (!colsfinal[langDefaultcol - keycol])
+    colsfinal[langDefaultcol - keycol] = def
 
   return colsfinal
 }
 
-const clakparselangs = (csv, keys) => {
+const clakLangDefault = (o, csv) => (
+  o.langDefault || (
+    // parse languages from top row, english or first lang by default
+    o.langDefault = csv.split('\n', 1)[0]
+      .match(/(?<=")\w\w\w?-\w\w(?=")/g) || [],
+    o.langDefault = o.langDefault.find(l => l === 'eng-US' || l === 'en-US')
+      || o.langDefault[0]))
+
+const clakparselangs = (csv, keys, o) => {
   const rowtop = clakparserowtop(csv)
   const keycol = getkeycolIndex(rowtop)
-
-  if (rowtop.indexOf('en-US') === -1)
-    throw new Error(`required default en-US column not found"`)
+  const langDefault = clakLangDefault(o, csv)
+  // console.log({ langDefault })
+  if (rowtop.indexOf(langDefault) === -1)
+    throw new Error(`required default "${langDefault}" column not found"`)
 
   // { priority: ['en-US'], en-US: 1, ja-JP: 2 }
   return [keys, keys.reduce((prev, key) => {
@@ -72,7 +82,7 @@ const clakSetup = (csv, o = {}) => Object.assign((key, def) => {
   // => { priority: [ 'en-US', 'ja-JP' ], 'en-US': 2, 'ja-JP': 3 }
   // ```
   if (Array.isArray(key) && typeof def === 'undefined')
-    return clakparselangs(csv, key)
+    return clakparselangs(csv, key, o)
 
   // ```
   // c('acces_denied', 'no access')
@@ -87,5 +97,5 @@ const clakSetup = (csv, o = {}) => Object.assign((key, def) => {
 })
 
 export default (...args) => typeof args[0] === 'string'
-  ? clakSetup(args[0])
+  ? clakSetup(args[0], { langDefault: args[1] })
   : clakProbe(...args)

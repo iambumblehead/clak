@@ -1,5 +1,9 @@
 # changelog
 
+ * 1.0.1 _Feb.05.2024_
+   * allow configurable default language
+ * 1.0.0 _May.24.2023_
+   * first release
  * 0.0.6 _May.24.2023_
    * add minimal template and koa/express examples to README
  * 0.0.5 _May.24.2023_
