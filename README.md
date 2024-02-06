@@ -32,9 +32,9 @@ const csv = `
 `.slice(1, -1)
 
 // memoize csv to a function returning lang store and tuples
-const c = clak(csv)
+const c = clak(csv, 'en-US') // optional second param, default lang
 
-// lang store defines lang priority and col position each lang
+// lang store defines lang priority; number is lang col position
 // ex, [['en-US','ja-JP'], {'en-US': 2, 'ja-JP': 3}]
 const langs = c(['en-US','ja-JP'])
 
