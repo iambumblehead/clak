@@ -87,3 +87,25 @@ test('should handle nested double quote', () => {
       'Validation failed, display name is already used ""{display_name}"".'
     ])
 })
+
+const csvNoEnglish = `
+"id","key","es-CL","ja-JP"
+1,"forbidden","you are forbidden","あなたが駄目です"
+2,"upstream_error","upstream error","それが駄目です"
+3,"access_denied","access denied","あなたが入れない駄目です"
+`.slice(1, -1)
+
+test('should allow configurable default language', () => {
+  // memoize csv to a function returning lang store and tuples
+  const c = clak(csvNoEnglish, 'ja-JP')
+
+  // lang store defines lang priority and col position each lang
+  const langs = c([ 'ja-JP', 'es-CL' ])
+
+  // tuple parsed row, uses scripted default when csv default missing
+  const access_denied = c('access_denied', 'no accesso')
+
+  assert.deepEqual(
+    clak(access_denied, langs, ['es-ES']),
+    'あなたが入れない駄目です')
+})

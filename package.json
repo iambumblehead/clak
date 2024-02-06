@@ -1,7 +1,7 @@
 {
   "name": "clak",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "ISC",
   "readmeFilename": "README.md",
   "description": "parses csv values to return internationalized messages",
