@@ -24,6 +24,7 @@
 
 To start, use a csv value to create a language object and message tuples. Next, return final language values from each tuple, specifying a list of preferred-language values from which the return value should correspond.
 ```javascript
+// Supports both two and three letter language id ex, 'en' or 'eng'
 const csv = `
 "id","key","en-US","ja-JP"
 1,"forbidden","you are forbidden","あなたが駄目です"

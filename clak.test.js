@@ -36,6 +36,40 @@ test('should pass the test', () => {
     'access denied')
 })
 
+const csv639_2 = `
+"id","key","eng-US","jap-JP"
+1,"forbidden","you are forbidden","あなたが駄目です"
+2,"upstream_error","upstream error","それが駄目です"
+3,"access_denied","access denied","あなたが入れない駄目です"
+`.slice(1, -1)
+
+test('should pass the test, three-letter language format', () => {
+  // memoize csv to a function returning lang store and tuples
+  const c = clak(csv639_2)
+
+  // lang store defines lang priority and col position each lang
+  const langs = c([ 'eng-US', 'jap-JP' ])
+
+  // tuple parsed row, uses scripted default when csv default missing
+  const access_denied = c('access_denied', 'no access')
+
+  assert.deepEqual(
+    access_denied,
+    ['access_denied','access denied','あなたが入れない駄目です'])
+
+  assert.deepEqual(
+    clak(access_denied, langs, ['jap-JP']),
+    'あなたが入れない駄目です')
+
+  assert.deepEqual(
+    clak(access_denied, langs, ['eng-US']),
+    'access denied')
+
+  assert.deepEqual(
+    clak(access_denied, langs, ['esp-ES']),
+    'access denied')
+})
+
 const csvbigger = `
 "id","key","en-US"
 1,"forbidden","Forbidden ヾ(・ω・)ノ. Insufficient Authorization."
