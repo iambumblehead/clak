@@ -30,13 +30,13 @@ clak(access_denied, langs, ['ja-JP']) // 'あなたが入れない駄目です'
 
 In a nutshell, `clak` functions are used in this sort of sequence,
  1. analyze the csv file,
-   * `c = clak(csv)`
+    * `c = clak(csv)`
  2. analyze and persist the precedence, order and positions of each locale in the csv file,
-   * `langs = c(['en-US','ja-JP'])`
+    * `langs = c(['en-US','ja-JP'])`
  3. define lazy-lookup functions with default values for each key,
-   * `const access_denied = c('access_denied', 'no access')`
+    * `const access_denied = c('access_denied', 'no access')`
  4. resolve an i18n value, calling the lazy-lookup function with a locale
-   * `clak(access_denied, langs, ['ja-JP']) // 'あなたが入れない駄目です'`
+    * `clak(access_denied, langs, ['ja-JP']) // 'あなたが入れない駄目です'`
 
 ```javascript
 // Supports both two and three letter language id ex, 'en' or 'eng'
