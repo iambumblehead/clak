@@ -1,6 +1,6 @@
 
 <h3 align="center"><img src="https://imgur.com/2nEIMc8.png" alt="logo" height="100px"></h3>
-<p align="center"><code>clak</code> parses csv values to return international messages</p>
+<p align="center"><code>clak</code> parsing csv sources to return international content</p>
 
 <p align="center">
 <a href="https://www.npmjs.com/package/clak"><img src="https://img.shields.io/npm/v/clak"></a>
@@ -8,13 +8,19 @@
 <a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-ISC-blue.svg"></a>
 </p>
 
- * operates on csv values,
- * enforces in-code default language values à la [nanostores/i18n,][3]
- * anticipates predictable, [unity-style csv file format,][1]
- * provides a flat key-value interface using no namespaces,
- * less than 100 lines of code and no dependencies,
- * returns lazy values easily used with 'accept-language' request headers
+``` javascript
+clak(access_denied, langs, ['ja-JP']) // 'あなたが入れない駄目です'
+```
 
+ * `clak` is small and does one thing: process csv sources,
+ * `clak` uses [unity-style csv file formats,][1]
+ * `clak` is functions with no Java-OOP ceremony,
+ * `clak` is ~100 lines of code, no dependencies,
+ * `clak` does not "load" csv files, allows your app to do that,
+ * `clak` returns lazy functions that will parse values when needed only,
+ * `clak` works in a browser or node environment,
+ * `clak` can resolve values at the "last moment" from request header and browser navigator locales
+ 
 
 [0]: https://github.com/iambumblehead/clak
 [1]: https://docs.unity3d.com/Packages/com.unity.localization@1.2/manual/CSV.html
@@ -22,7 +28,16 @@
 [3]: https://github.com/nanostores/i18n
 
 
-To start, use a csv value to create a language object and message tuples. Next, return final language values from each tuple, specifying a list of preferred-language values from which the return value should correspond.
+In a nutshell, `clak` functions are used in this sort of sequence,
+ 1. analyze the csv file,
+   * `c = clak(csv)`
+ 2. analyze and persist the precedence, order and positions of each locale in the csv file,
+   * `langs = c(['en-US','ja-JP'])`
+ 3. define lazy-lookup functions with default values for each key,
+   * `const access_denied = c('access_denied', 'no access')`
+ 4. resolve an i18n value, calling the lazy-lookup function with a locale
+   * `clak(access_denied, langs, ['ja-JP']) // 'あなたが入れない駄目です'`
+
 ```javascript
 // Supports both two and three letter language id ex, 'en' or 'eng'
 const csv = `

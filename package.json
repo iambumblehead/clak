@@ -1,7 +1,7 @@
 {
   "name": "clak",
   "type": "module",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "ISC",
   "readmeFilename": "README.md",
   "description": "parses csv values to return internationalized messages",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/iambumblehead/clak.git"
+    "url": "git+https://github.com/iambumblehead/clak.git"
   },
   "files": [
     "clak.mjs",
@@ -38,7 +38,7 @@
   "scripts": {
     "test": "npm start && node --test",
     "lint": "eslint clak.mjs",
-    "start": "cp clak.mjs clak.js && sed -i 's/export default/module.exports =/' clak.js",
+    "start": "cp clak.mjs clak.js; sed  -i'' -e 's/export default/module.exports =/' clak.js",
     "prepublishOnly": "npm start && npm run lint && npm test"
   }
 }
