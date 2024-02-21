@@ -36,6 +36,23 @@ test('should pass the test', () => {
     'access denied')
 })
 
+test('should return full in-order list, when priority list smaller', () => {
+  // memoize csv to a function returning lang store and tuples
+  const c = clak(csv)
+
+  assert.deepEqual(
+    c([ 'en-US' ]),
+    [[ 'en-US', 'ja-JP' ], { 'en-US': 1, 'ja-JP': 2 } ])
+
+  assert.deepEqual(
+    c([ 'ja-JP', 'en-US' ]),
+    [[ 'ja-JP', 'en-US' ], { 'ja-JP': 2, 'en-US': 1 } ])
+
+  assert.deepEqual(
+    c([ 'ja-JP' ]),
+    [[ 'ja-JP', 'en-US' ], { 'ja-JP': 2, 'en-US': 1 } ])  
+})
+
 const csv639_2 = `
 "id","key","eng-US","jap-JP"
 1,"forbidden","you are forbidden","あなたが駄目です"
@@ -143,3 +160,4 @@ test('should allow configurable default language', () => {
     clak(access_denied, langs, ['es-ES']),
     'あなたが入れない駄目です')
 })
+

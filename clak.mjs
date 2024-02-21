@@ -54,12 +54,17 @@ const clakparselangs = (csv, keys, o) => {
   const rowtop = clakparserowtop(csv)
   const keycol = getkeycolIndex(rowtop)
   const langDefault = clakLangDefault(o, csv)
-  // console.log({ langDefault })
+
+  // preserve order of 'keys' with any addtl keys from csv file
+  // eg, (keys = ['jap-JP'], csv = ['eng-US', 'jap-JP']) => ['jap-JP', 'eng-US']
+  const keysinclRe = new RegExp(`^(${keys.concat(['id', 'key']).join('|')})$`)
+  const keysfull = keys.concat(rowtop.filter(key => !keysinclRe.test(key)))
+
   if (rowtop.indexOf(langDefault) === -1)
     throw new Error(`required default "${langDefault}" column not found"`)
-
+  
   // { priority: ['en-US'], en-US: 1, ja-JP: 2 }
-  return [keys, keys.reduce((prev, key) => {
+  return [keysfull, keysfull.reduce((prev, key) => {
     prev[key] = rowtop.indexOf(key) - keycol
     if (prev[key] === -1)
       throw new Error(`key not found: ${key}`)

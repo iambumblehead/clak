@@ -1,6 +1,6 @@
 
 <h3 align="center"><img src="https://imgur.com/2nEIMc8.png" alt="logo" height="100px"></h3>
-<p align="center"><code>clak</code> parses csv values to return international messages</p>
+<p align="center"><code>clak</code> returns international content from csv; ~100 LOC, no dependencies</p>
 
 <p align="center">
 <a href="https://www.npmjs.com/package/clak"><img src="https://img.shields.io/npm/v/clak"></a>
@@ -8,21 +8,20 @@
 <a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-ISC-blue.svg"></a>
 </p>
 
- * operates on csv values,
- * enforces in-code default language values à la [nanostores/i18n,][3]
- * anticipates predictable, [unity-style csv file format,][1]
- * provides a flat key-value interface using no namespaces,
- * less than 100 lines of code and no dependencies,
- * returns lazy values easily used with 'accept-language' request headers
+A "nutshell" example, using `clak` in 4 steps,
+```javascript
+// 1. memoize the csv file,
+// 2. analyze and persist the precedence, order and position of each locale in at csv file,
+// 3. define lazy-lookup functions with default values for each key,
+// 4. resolve an i18n value, calling the lazy-lookup function with a locale
 
+const c = clak(csv) // memoize
+const langs = c(['en-US','ja-JP']) // analyze and persist column position
+const access_denied = c('access_denied', 'no access') // lazy-lookup for key
+clak(access_denied, langs, ['ja-JP']) // 'あなたが入れない駄目です'
+```
 
-[0]: https://github.com/iambumblehead/clak
-[1]: https://docs.unity3d.com/Packages/com.unity.localization@1.2/manual/CSV.html
-[2]: https://github.com/nanostores/nanostores
-[3]: https://github.com/nanostores/i18n
-
-
-To start, use a csv value to create a language object and message tuples. Next, return final language values from each tuple, specifying a list of preferred-language values from which the return value should correspond.
+A longer example with details for each step,
 ```javascript
 // Supports both two and three letter language id ex, 'en' or 'eng'
 const csv = `
@@ -106,3 +105,11 @@ const lang = parsedISOSpec &&
 
 
 To anyone who may possibly use this package, feel free to open issues and support requests.
+
+
+
+
+[0]: https://github.com/iambumblehead/clak
+[1]: https://docs.unity3d.com/Packages/com.unity.localization@1.2/manual/CSV.html
+[2]: https://github.com/nanostores/nanostores
+[3]: https://github.com/nanostores/i18n
