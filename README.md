@@ -28,24 +28,22 @@ clak(access_denied, langs, ['ja-JP']) // 'あなたが入れない駄目です'
 [3]: https://github.com/nanostores/i18n
 
 
-In a nutshell, `clak` functions are used in this sort of sequence,
- 1. analyze the csv file,
-    ```javascript
-    c = clak(csv)
-    ```
- 2. analyze and persist the precedence, order and position of each locale in at csv file,
-    ```javasript
-    langs = c(['en-US','ja-JP'])
-    ```
- 3. define lazy-lookup functions with default values for each key,
-    ```javascript
-    const access_denied = c('access_denied', 'no access')
-    ```
- 4. resolve an i18n value, calling the lazy-lookup function with a locale
-    ```javascript
-    clak(access_denied, langs, ['ja-JP']) // 'あなたが入れない駄目です'
-    ```
+A "nutshell" example shows how `clak` is used in 4 clear steps,
+```javascript
+// 1. analyze the csv file,
+const c = clak(csv)
 
+// 2. analyze and persist the precedence, order and position of each locale in at csv file,
+const langs = c(['en-US','ja-JP'])
+
+// 3. define lazy-lookup functions with default values for each key,
+const access_denied = c('access_denied', 'no access')
+
+// 4. resolve an i18n value, calling the lazy-lookup function with a locale
+clak(access_denied, langs, ['ja-JP']) // 'あなたが入れない駄目です'
+```
+
+A longer example below provides gives details for each step
 ```javascript
 // Supports both two and three letter language id ex, 'en' or 'eng'
 const csv = `
