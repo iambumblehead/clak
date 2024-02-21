@@ -12,15 +12,15 @@
 clak(access_denied, langs, ['ja-JP']) // 'あなたが入れない駄目です'
 ```
 
- * `clak` is small and does one thing: process csv sources,
- * `clak` uses [unity-style csv file formats,][1]
- * `clak` is functions with no Java-OOP ceremony,
- * `clak` is ~100 lines of code, no dependencies,
- * `clak` does not "load" csv files, allows your app to do that,
- * `clak` returns lazy functions that will parse values when needed only,
- * `clak` works in a browser or node environment,
- * `clak` can resolve values at the "last moment" from request header and browser navigator locales
- 
+ * **small,** ~100 LOC, no dependencies,
+ * **does one task only,** process csv sources,
+ * **does not "load"** csv files, allows your app to do that,
+ * **exports functions** with no Java-OOP ceremony,
+ * **returns lazy functions** to parse values only when needed,
+ * **works in browser and node environments**
+ * **will resolve values at the "last moment"** from request header and browser navigator locales
+ * **uses standard** [unity-style csv file formats,][1] 
+
 
 [0]: https://github.com/iambumblehead/clak
 [1]: https://docs.unity3d.com/Packages/com.unity.localization@1.2/manual/CSV.html
