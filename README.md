@@ -1,34 +1,12 @@
 
 <h3 align="center"><img src="https://imgur.com/2nEIMc8.png" alt="logo" height="100px"></h3>
-<p align="center"><code>clak</code> parsing csv sources to return international content</p>
+<p align="center"><code>clak</code> returns international content from csv; ~100 LOC, no dependencies</p>
 
 <p align="center">
 <a href="https://www.npmjs.com/package/clak"><img src="https://img.shields.io/npm/v/clak"></a>
 <a href="https://github.com/iambumblehead/clak/workflows"><img src="https://github.com/iambumblehead/clak/workflows/test/badge.svg"></a>
 <a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-ISC-blue.svg"></a>
 </p>
-
-``` javascript
-clak(access_denied, langs, ['ja-JP']) // 'あなたが入れない駄目です'
-```
-
- * **small,** ~100 LOC, no dependencies,
- * **does one task only,** process csv sources,
- * **does not "load"** csv files, allows your app to do that,
- * **exports functions** with no Java-OOP ceremony,
- * **returns lazy functions** to parse values only when needed,
- * **works in browser and node environments**
- * **will resolve values at the "last moment"** from request header and browser navigator locales
- * **uses standard** [unity-style csv file formats,][1] 
-
-
-[0]: https://github.com/iambumblehead/clak
-[1]: https://docs.unity3d.com/Packages/com.unity.localization@1.2/manual/CSV.html
-[2]: https://github.com/nanostores/nanostores
-[3]: https://github.com/nanostores/i18n
-
-
--------------------------------------
 
 A "nutshell" example, using `clak` in 4 steps,
 ```javascript
@@ -127,3 +105,11 @@ const lang = parsedISOSpec &&
 
 
 To anyone who may possibly use this package, feel free to open issues and support requests.
+
+
+
+
+[0]: https://github.com/iambumblehead/clak
+[1]: https://docs.unity3d.com/Packages/com.unity.localization@1.2/manual/CSV.html
+[2]: https://github.com/nanostores/nanostores
+[3]: https://github.com/nanostores/i18n
