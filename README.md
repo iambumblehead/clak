@@ -28,18 +28,18 @@ clak(access_denied, langs, ['ja-JP']) // 'あなたが入れない駄目です'
 [3]: https://github.com/nanostores/i18n
 
 
+-------------------------------------
+
 A "nutshell" example, using `clak` in 4 steps,
 ```javascript
-// 1. analyze the csv file,
-const c = clak(csv)
-
+// 1. memoize the csv file,
 // 2. analyze and persist the precedence, order and position of each locale in at csv file,
-const langs = c(['en-US','ja-JP'])
-
 // 3. define lazy-lookup functions with default values for each key,
-const access_denied = c('access_denied', 'no access')
-
 // 4. resolve an i18n value, calling the lazy-lookup function with a locale
+
+const c = clak(csv) // memoize
+const langs = c(['en-US','ja-JP']) // analyze and persist column position
+const access_denied = c('access_denied', 'no access') // lazy-lookup for key
 clak(access_denied, langs, ['ja-JP']) // 'あなたが入れない駄目です'
 ```
 
