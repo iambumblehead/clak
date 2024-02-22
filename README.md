@@ -10,14 +10,17 @@
 
 A "nutshell" example, using `clak` in 4 steps,
 ```javascript
-// 1. memoize the csv file,
-// 2. analyze and persist the precedence, order and position of each locale in at csv file,
+// 1. memoize the csv source,
+// 2. analyze and persist the order and csv position of each locale,
 // 3. define lazy-lookup functions with default values for each key,
-// 4. resolve an i18n value, calling the lazy-lookup function with a locale
+// 4. resolve i18n values, calling lazy-lookup functions with locales
 
-const c = clak(csv) // memoize
-const langs = c(['en-US','ja-JP']) // analyze and persist column position
-const access_denied = c('access_denied', 'no access') // lazy-lookup for key
+const c = clak(`"id","key","en-US","ja-JP"
+2,"upstream_error","upstream error","それが駄目です"
+3,"access_denied","access denied","入れない駄目です"`)
+
+const langs = c(['en-US','ja-JP']) // persist csv column positions
+const access_denied = c('access_denied', 'no access') // lazy-lookup fn
 clak(access_denied, langs, ['ja-JP']) // 'あなたが入れない駄目です'
 ```
 
